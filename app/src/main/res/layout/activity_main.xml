@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context="jaypaw.pm.easywatermark.MainActivity">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -140,6 +144,118 @@
                     android:textSize="15dp"/>
             </RadioGroup>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Select Position"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="20dp" />
+            <RadioGroup
+                android:id="@+id/positionpicker1"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/LT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/MT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/RT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+
+
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/positionpicker2"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/LM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/MM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/RM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+             </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/positionpicker3"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/LB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/MB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/RB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+
+                    android:textSize="15dp"/>
+            </RadioGroup>
+
             <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -220,5 +336,6 @@
 
     </LinearLayout>
 
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

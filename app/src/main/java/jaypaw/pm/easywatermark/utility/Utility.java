@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import jaypaw.pm.easywatermark.R;
 
 import static android.R.attr.bitmap;
 
@@ -69,14 +72,14 @@ public class Utility {
         Log.d(Utility.class.getSimpleName(), "Saved watermarked file: " + imageFile.getAbsolutePath());
     }
 
-    public static Bitmap waterMark(Bitmap bitmap, String watermark, int color, int opacity) {
+    public static Bitmap waterMark(Bitmap bitmap, String watermarkmsg, int color, int opacity, String positionId) {
         //get source image width and height
-        int w = bitmap.getWidth();
-        int h = bitmap.getHeight();
+        //int w = bitmap.getWidth();
+        //int h = bitmap.getHeight();
 
-        int msglength = watermark.length();
-        int posX = (w/2) - msglength;
-        Log.d(Utility.class.getSimpleName(), w + "  " + msglength + "  " + posX);
+        int posX = getPositionX(positionId, bitmap, watermarkmsg);
+
+        //Log.d(Utility.class.getSimpleName(), "ImgW: " + w + " ImgH: " + h + "  posX: "+ posX + "  posY: " + posY);
 
         //Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
         //create canvas object
@@ -91,13 +94,62 @@ public class Utility {
         //paint.setAlpha(250);
         paint.setAlpha(opacity);
         //set text size
-        paint.setTextSize(40);
+        paint.setTextSize(20);
         paint.setAntiAlias(true);
         //set should be underlined or not
         paint.setUnderlineText(false);
         //draw text on given location
-        canvas.drawText(watermark, posX, 200, paint);
+        canvas.drawText(watermarkmsg, posX, 100, paint);
 
         return bitmap;
     }
+
+
+    private static int getPositionX(String id, Bitmap bitmap, String msg) {
+
+        int pictureWidth = bitmap.getWidth();
+        float msgWidth = getMessageWidthPixel(msg);
+        int msgWidthInt = (int) msgWidth;
+
+
+        switch(id) {
+            case "LT":
+            case "LM":
+            case "LB": {
+                int onethirdOfPic = pictureWidth / 3;
+                int positionPoint = onethirdOfPic / 2;
+                int finalX = positionPoint - (msgWidthInt / 2);
+                return finalX;
+            }
+            case "MT":
+            case "MM":
+            case "MB":    {
+                int halfOfPic = pictureWidth / 2;
+                int finalX = halfOfPic - (msgWidthInt / 2);
+                return finalX;
+            }
+            case "RT":
+            case "RM":
+            case "RB": {
+                int halfOfPic = pictureWidth / 2;
+                int positionPoint = halfOfPic + (halfOfPic / 2);
+                int finalX = positionPoint - (msgWidthInt / 2);
+                return finalX;
+            }
+
+            default: {
+                int halfOfPic = pictureWidth / 2;
+                int finalX = halfOfPic - (msgWidthInt / 2);
+                return finalX;
+            }
+        }
+    }
+
+    private static float getMessageWidthPixel(String msg) {
+        Paint mPaint = new Paint();
+        mPaint.setTextSize(20);
+        float width = mPaint.measureText(msg, 0, msg.length());
+        return width;
+    }
+
 }

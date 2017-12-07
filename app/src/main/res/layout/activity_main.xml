@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jaypaw.pm.easywatermark.MainActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Type Watermark Message"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/watermarkmessage"
+                android:layout_width="fill_parent"
+                android:maxLines="1"
+                android:layout_margin="5dp"
+                android:maxLength="50"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Pick Color"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="20dp" />
+
+            <RadioGroup
+                android:id="@+id/colorpicker"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="Blue"
+                    android:textSize="16dp"/>
+
+                <RadioButton
+                    android:id="@+id/red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorRed"
+                    android:text="Red"
+                    android:textSize="16dp"/>
+
+                <RadioButton
+                    android:id="@+id/green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorGreen"
+                    android:text="Green"
+                    android:textSize="16dp"/>
+
+                <RadioButton
+                    android:id="@+id/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:text="Black"
+                    android:textSize="16dp"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Select Opacity"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="20dp" />
+            <RadioGroup
+                android:id="@+id/opacitypicker"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/percent25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="25%"
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/percent50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="50%"
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/percent75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="75%"
+                    android:textSize="15dp"/>
+
+                <RadioButton
+                    android:id="@+id/percent90"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="90%"
+                    android:textSize="15dp"/>
+            </RadioGroup>
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Pick Font"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="20dp" />
+            <RadioGroup
+                android:id="@+id/fontpicker"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/casual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/colorBlue"
+                        android:text="casual"
+                        android:fontFamily="casual"
+                        android:textSize="10dp"/>
+                    <RadioButton
+                        android:id="@+id/monospace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/colorBlue"
+                        android:fontFamily="monospace"
+                        android:text="monospace"
+                        android:textSize="10dp"/>
+                    <RadioButton
+                        android:id="@+id/sansserif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/colorBlue"
+                        android:fontFamily="sansserif"
+                        android:text="sansserif"
+                        android:textSize="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/cursive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/colorBlue"
+                        android:fontFamily="cursive"
+                        android:text="cursive"
+                        android:textSize="10dp"/>
+            </RadioGroup>-->
+
+            <!--<ImageButton
+                android:id="@+id/btnCapture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher" />-->
+
+            <ImageView
+                android:id="@+id/btnCapture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher" />
+
+            <!--<Button
+                android:id="@+id/btnCapture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Camera" />-->
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

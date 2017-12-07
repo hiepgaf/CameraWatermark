@@ -78,6 +78,7 @@ public class Utility {
         //int h = bitmap.getHeight();
 
         int posX = getPositionX(positionId, bitmap, watermarkmsg);
+        int posY = getPositionY(positionId, bitmap, watermarkmsg);
 
         //Log.d(Utility.class.getSimpleName(), "ImgW: " + w + " ImgH: " + h + "  posX: "+ posX + "  posY: " + posY);
 
@@ -94,12 +95,12 @@ public class Utility {
         //paint.setAlpha(250);
         paint.setAlpha(opacity);
         //set text size
-        paint.setTextSize(20);
+        paint.setTextSize(30);
         paint.setAntiAlias(true);
         //set should be underlined or not
         paint.setUnderlineText(false);
         //draw text on given location
-        canvas.drawText(watermarkmsg, posX, 100, paint);
+        canvas.drawText(watermarkmsg, posX, posY, paint);
 
         return bitmap;
     }
@@ -141,6 +142,45 @@ public class Utility {
                 int halfOfPic = pictureWidth / 2;
                 int finalX = halfOfPic - (msgWidthInt / 2);
                 return finalX;
+            }
+        }
+    }
+
+    private static int getPositionY(String id, Bitmap bitmap, String msg) {
+
+        int pictureHeight = bitmap.getHeight();
+        //float msgWidth = getMessageWidthPixel(msg);
+        //int msgWidthInt = (int) msgWidth;
+
+
+        switch(id) {
+            case "LT":
+            case "MT":
+            case "RT": {
+                int onethirdOfPic = pictureHeight / 3;
+                int positionPoint = onethirdOfPic / 2;
+                //int finalY = positionPoint - (msgWidthInt / 2);
+                return positionPoint;
+            }
+            case "LM":
+            case "MM":
+            case "RM":    {
+                int halfOfPic = pictureHeight / 2;
+                //int finalX = halfOfPic - (msgWidthInt / 2);
+                return halfOfPic;
+            }
+            case "LB":
+            case "MB":
+            case "RB": {
+                int onethirdOfPic = pictureHeight / 3;
+                int positionPoint = (onethirdOfPic * 2) + (onethirdOfPic / 2);
+                return positionPoint;
+            }
+
+            default: {
+                int halfOfPic = pictureHeight / 2;
+                //int finalX = halfOfPic - (msgWidthInt / 2);
+                return halfOfPic;
             }
         }
     }

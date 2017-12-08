@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -284,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 Utility.saveBitmapAsImageFile(imageFile, bitmap);
+                scanFile(imageFile.getAbsolutePath());
                 openScreenshot(imageFile);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -487,5 +489,17 @@ public class MainActivity extends AppCompatActivity {
                 (InputMethodManager) getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    }
+
+    private void scanFile(String path) {
+
+        MediaScannerConnection.scanFile(MainActivity.this,
+                new String[] { path }, null,
+                new MediaScannerConnection.OnScanCompletedListener() {
+
+                    public void onScanCompleted(String path, Uri uri) {
+                        Log.i("TAG", "Finished scanning " + path);
+                    }
+                });
     }
 }

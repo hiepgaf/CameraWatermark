@@ -72,7 +72,9 @@ public class Utility {
 
         int pictureWidthPixel = bitmap.getWidth();
 
-        Integer basicfontSize = new Integer(40);
+        //Integer basicfontSize = new Integer(40);
+        int basicfontSize = (int) (40 * resolutionDensity);
+        Log.d(Utility.class.getSimpleName(), "basicfontsize: " + basicfontSize + "   resolution: " + resolutionDensity);
         int fontSize = getFontSize(watermarkmsg, pictureWidthPixel, basicfontSize);
         float msgWidthPixel = getMessageWidthPixel(watermarkmsg, fontSize);
 
@@ -132,9 +134,12 @@ public class Utility {
             case "LT":
             case "LM":
             case "LB": {
-                int onethirdOfPic = pictureWidth / 3;
+                /*int onethirdOfPic = pictureWidth / 3;
                 int positionPoint = onethirdOfPic / 2;
                 int finalX = positionPoint - (msgWidthInt / 2);
+                return finalX;*/
+                int halfOfPic = pictureWidth / 2;
+                int finalX = halfOfPic - (msgWidthInt / 2);
                 return finalX;
             }
             case "MT":
@@ -147,9 +152,12 @@ public class Utility {
             case "RT":
             case "RM":
             case "RB": {
-                int halfOfPic = pictureWidth / 2;
+                /*int halfOfPic = pictureWidth / 2;
                 int positionPoint = halfOfPic + (halfOfPic / 2);
                 int finalX = positionPoint - (msgWidthInt / 2);
+                return finalX;*/
+                int halfOfPic = pictureWidth / 2;
+                int finalX = halfOfPic - (msgWidthInt / 2);
                 return finalX;
             }
 

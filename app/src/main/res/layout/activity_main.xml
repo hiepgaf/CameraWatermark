@@ -36,10 +36,11 @@
             <EditText
                 android:id="@+id/watermarkmessage"
                 android:layout_width="fill_parent"
-                android:maxLines="1"
+                android:maxLines="3"
                 android:layout_margin="5dp"
-                android:maxLength="100"
-                android:hint="Watermark msg 100 Char max"
+                android:inputType="textMultiLine"
+                android:maxLength="50"
+                android:hint="Watermark msg 50 Char max"
                 android:layout_height="wrap_content" />
 
             <TextView

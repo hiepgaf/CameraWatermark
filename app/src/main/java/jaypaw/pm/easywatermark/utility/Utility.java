@@ -65,12 +65,18 @@ public class Utility {
         Log.d(Utility.class.getSimpleName(), "Saved watermarked file: " + imageFile.getAbsolutePath());
     }
 
-    public static Bitmap waterMark(Bitmap bitmap, String watermarkmsg, int color, int opacity, String positionId) {
+    public static Bitmap waterMark(Bitmap bitmap, String watermarkmsg, int color, int opacity, String positionId, float resolutionDensity) {
         //get source image width and height
         //int w = bitmap.getWidth();
         //int h = bitmap.getHeight();
 
-        int posX = getPositionX(positionId, bitmap, watermarkmsg);
+        int pictureWidthPixel = bitmap.getWidth();
+
+        Integer basicfontSize = new Integer(40);
+        int fontSize = getFontSize(watermarkmsg, pictureWidthPixel, basicfontSize);
+        float msgWidthPixel = getMessageWidthPixel(watermarkmsg, fontSize);
+
+        int posX = getPositionX(positionId, bitmap, watermarkmsg, msgWidthPixel);
         int posY = getPositionY(positionId, bitmap, watermarkmsg);
 
         //Log.d(Utility.class.getSimpleName(), "ImgW: " + w + " ImgH: " + h + "  posX: "+ posX + "  posY: " + posY);
@@ -88,7 +94,9 @@ public class Utility {
         //paint.setAlpha(250);
         paint.setAlpha(opacity);
         //set text size
-        paint.setTextSize(30);
+        //float fontSize = 20 * resolutionDensity;
+
+        paint.setTextSize(fontSize);
         paint.setAntiAlias(true);
         //set should be underlined or not
         paint.setUnderlineText(false);
@@ -98,12 +106,26 @@ public class Utility {
         return bitmap;
     }
 
+    private static Integer getFontSize(String msg, int pictureWidth, Integer basicFontSize) {
+        float msgWidthPixel = getMessageWidthPixel(msg, basicFontSize);
+        int fontSize = basicFontSize;
+        while(msgWidthPixel > pictureWidth) {
+            if (fontSize > 9 ) {
+                fontSize -= 1;
+            }
+            Log.d(Utility.class.getSimpleName(), fontSize + "  " + msgWidthPixel + "  " + pictureWidth);
+            msgWidthPixel = getMessageWidthPixel(msg, fontSize);
+        }
 
-    private static int getPositionX(String id, Bitmap bitmap, String msg) {
+        Log.d(Utility.class.getSimpleName(), "Final fontsize: " + fontSize);
+        return fontSize;
+    }
+
+
+    private static int getPositionX(String id, Bitmap bitmap, String msg, float msgWidthpixel) {
 
         int pictureWidth = bitmap.getWidth();
-        float msgWidth = getMessageWidthPixel(msg);
-        int msgWidthInt = (int) msgWidth;
+        int msgWidthInt = (int) msgWidthpixel;
 
 
         switch(id) {
@@ -178,10 +200,11 @@ public class Utility {
         }
     }
 
-    private static float getMessageWidthPixel(String msg) {
+    private static float getMessageWidthPixel(String msg, float fontSize) {
         Paint mPaint = new Paint();
-        mPaint.setTextSize(20);
+        mPaint.setTextSize(fontSize);
         float width = mPaint.measureText(msg, 0, msg.length());
+        Log.d(Utility.class.getSimpleName(), "fontsize: " + fontSize + "  msgWidthPixel: " + width);
         return width;
     }
 

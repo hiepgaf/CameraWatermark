@@ -281,7 +281,8 @@ public class MainActivity extends AppCompatActivity {
         if (color != null && opacity != null){
 
             Bitmap bitmap1 = getWorkingBitmap();
-            Bitmap bitmap = Utility.waterMark(bitmap1, message, getColorCode(color), getOPacity(opacity),getPostionRadioButtonId(positionRadioButton));
+            float resolutionDensity = getResources().getDisplayMetrics().density;
+            Bitmap bitmap = Utility.waterMark(bitmap1, message, getColorCode(color), getOPacity(opacity),getPostionRadioButtonId(positionRadioButton), resolutionDensity);
 
             try {
                 Utility.saveBitmapAsImageFile(imageFile, bitmap);

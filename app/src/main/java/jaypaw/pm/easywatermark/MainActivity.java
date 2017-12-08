@@ -1,6 +1,7 @@
 package jaypaw.pm.easywatermark;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,29 +10,23 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import jaypaw.pm.easywatermark.utility.Utility;
 
@@ -45,9 +40,68 @@ public class MainActivity extends AppCompatActivity {
     RadioGroup positionpicker2;
     RadioGroup positionpicker3;
 
-    private RadioGroup.OnCheckedChangeListener listener1;
+    RadioGroup colorGroup;
+
+    ScrollView scrollView;
+
+    /*private RadioGroup.OnCheckedChangeListener listener1;
     private RadioGroup.OnCheckedChangeListener listener2;
-    private RadioGroup.OnCheckedChangeListener listener3;
+    private RadioGroup.OnCheckedChangeListener listener3;*/
+
+    private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId != -1) {
+                positionpicker2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                positionpicker2.clearCheck(); // clear the second RadioGroup!
+                positionpicker2.setOnCheckedChangeListener(listener2); //reset the listener
+
+                positionpicker3.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                positionpicker3.clearCheck(); // clear the second RadioGroup!
+                positionpicker3.setOnCheckedChangeListener(listener3); //reset the listener
+
+                scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        }
+    };
+
+    private RadioGroup.OnCheckedChangeListener listener2 = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId != -1) {
+                positionpicker1.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                positionpicker1.clearCheck(); // clear the second RadioGroup!
+                positionpicker1.setOnCheckedChangeListener(listener1); //reset the listener
+
+                positionpicker3.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                positionpicker3.clearCheck(); // clear the second RadioGroup!
+                positionpicker3.setOnCheckedChangeListener(listener3); //reset the listener
+
+                scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        }
+    };
+
+
+    private RadioGroup.OnCheckedChangeListener listener3 = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId != -1) {
+                positionpicker2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                positionpicker2.clearCheck(); // clear the second RadioGroup!
+                positionpicker2.setOnCheckedChangeListener(listener2); //reset the listener
+
+                positionpicker1.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                positionpicker1.clearCheck(); // clear the second RadioGroup!
+                positionpicker1.setOnCheckedChangeListener(listener1); //reset the listener
+
+                scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -55,9 +109,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        scrollView = (ScrollView) findViewById(R.id.watermarkscrollview);
+
         checkRequiredPermissions();
 
         intializePositionRadioGroups();
+
+
+        colorGroup = (RadioGroup) findViewById(R.id.colorpicker);
+        colorGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+              @Override
+              public void onCheckedChanged(RadioGroup group, int checkedId) {
+                  if (checkedId != -1) {
+                      hideSoftKeyboard();
+                  }
+              }
+          });
+
 
         ImageView capture = (ImageView) findViewById(R.id.btnCapture);
         capture.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         positionpicker2.setOnCheckedChangeListener(listener2);
         positionpicker3.setOnCheckedChangeListener(listener3);
 
-        positionpicker1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        /*positionpicker1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.d(this.getClass().getSimpleName(), "checkedId " + checkedId);
@@ -92,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
                     //positionpicker3.setOnCheckedChangeListener(null);
                     positionpicker3.clearCheck();
                     //positionpicker3.setOnCheckedChangeListener(listener3);
+
+                    scrollView.fullScroll(View.FOCUS_DOWN);
                 }
             }
         });
@@ -108,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
                     //positionpicker3.setOnCheckedChangeListener(null);
                     positionpicker3.clearCheck();
                     //positionpicker3.setOnCheckedChangeListener(listener3);
+
+                    scrollView.fullScroll(View.FOCUS_DOWN);
                 }
             }
         });
@@ -124,9 +196,11 @@ public class MainActivity extends AppCompatActivity {
                     //positionpicker2.setOnCheckedChangeListener(null);
                     positionpicker2.clearCheck();
                     //positionpicker2.setOnCheckedChangeListener(listener2);
+
+                    scrollView.fullScroll(View.FOCUS_DOWN);
                 }
             }
-        });
+        });*/
     }
 
     private void openScreenshot(File imageFile) {
@@ -203,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
 
         RadioButton positionRadioButton = getSelectedPositionRadioButton();
 
-        if (positionRadioButton != null && color != null && opacity != null){
+        if (color != null && opacity != null){
 
             Bitmap bitmap1 = getWorkingBitmap();
             Bitmap bitmap = Utility.waterMark(bitmap1, message, getColorCode(color), getOPacity(opacity),getPostionRadioButtonId(positionRadioButton));
@@ -238,6 +312,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String getPostionRadioButtonId(View view) {
+
+        if (view == null) {
+            return "MM";
+        }
 
         switch(view.getId()) {
             case R.id.LT: {
@@ -284,14 +362,31 @@ public class MainActivity extends AppCompatActivity {
         RadioGroup opacityGroup = (RadioGroup) findViewById(R.id.opacitypicker);
         int selectedOpacity = opacityGroup.getCheckedRadioButtonId();
         RadioButton opacityRadio = (RadioButton) findViewById(selectedOpacity);
-        return (String) opacityRadio.getText();
+
+        String opacityStr = null;
+
+        if (opacityRadio == null) {
+            opacityStr = "90%";
+        } else {
+            opacityStr = opacityRadio.getText().toString();
+        }
+
+        return opacityStr;
     }
 
     private String getSelectedColor() {
-        RadioGroup colorGroup = (RadioGroup) findViewById(R.id.colorpicker);
+        //RadioGroup colorGroup = (RadioGroup) findViewById(R.id.colorpicker);
         int selectedColor = colorGroup.getCheckedRadioButtonId();
         RadioButton colorRadio = (RadioButton) findViewById(selectedColor);
-        return (String) colorRadio.getText();
+        String colorStr = null;
+
+        if (colorRadio == null) {
+            colorStr = "Red";
+        } else {
+            colorStr = colorRadio.getText().toString();
+        }
+
+        return colorStr;
     }
 
     /*private String getSelectedFont() {
@@ -385,5 +480,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    public void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 }

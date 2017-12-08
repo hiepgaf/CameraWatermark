@@ -4,20 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.View;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import jaypaw.pm.easywatermark.R;
-
-import static android.R.attr.bitmap;
 
 /**
  * Created by has7 on 12/6/2017.

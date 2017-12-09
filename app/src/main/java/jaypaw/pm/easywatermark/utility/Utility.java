@@ -127,8 +127,16 @@ public class Utility {
         return fontSize;
     }
 
-
     private static int getPositionX(String id, Bitmap bitmap, String msg, float msgWidthpixel) {
+        int pictureWidth = bitmap.getWidth();
+        int msgWidthInt = (int) msgWidthpixel;
+
+        int halfOfPic = pictureWidth / 2;
+        int finalX = halfOfPic - (msgWidthInt / 2);
+        return finalX;
+    }
+
+    /*private static int getPositionX(String id, Bitmap bitmap, String msg, float msgWidthpixel) {
 
         int pictureWidth = bitmap.getWidth();
         int msgWidthInt = (int) msgWidthpixel;
@@ -138,10 +146,10 @@ public class Utility {
             case "LT":
             case "LM":
             case "LB": {
-                /*int onethirdOfPic = pictureWidth / 3;
+                *//*int onethirdOfPic = pictureWidth / 3;
                 int positionPoint = onethirdOfPic / 2;
                 int finalX = positionPoint - (msgWidthInt / 2);
-                return finalX;*/
+                return finalX;*//*
                 int halfOfPic = pictureWidth / 2;
                 int finalX = halfOfPic - (msgWidthInt / 2);
                 return finalX;
@@ -156,10 +164,10 @@ public class Utility {
             case "RT":
             case "RM":
             case "RB": {
-                /*int halfOfPic = pictureWidth / 2;
+                *//*int halfOfPic = pictureWidth / 2;
                 int positionPoint = halfOfPic + (halfOfPic / 2);
                 int finalX = positionPoint - (msgWidthInt / 2);
-                return finalX;*/
+                return finalX;*//*
                 int halfOfPic = pictureWidth / 2;
                 int finalX = halfOfPic - (msgWidthInt / 2);
                 return finalX;
@@ -171,14 +179,36 @@ public class Utility {
                 return finalX;
             }
         }
-    }
+    }*/
 
     private static int getPositionY(String id, Bitmap bitmap, String msg) {
 
         int pictureHeight = bitmap.getHeight();
-        //float msgWidth = getMessageWidthPixel(msg);
-        //int msgWidthInt = (int) msgWidth;
 
+        switch(id) {
+            case "Top": {
+                int onethirdOfPic = pictureHeight / 3;
+                int positionPoint = onethirdOfPic / 2;
+                return positionPoint;
+            }
+            case "Middle":    {
+                int halfOfPic = pictureHeight / 2;
+                return halfOfPic;
+            }
+            case "Bottom": {
+                int onethirdOfPic = pictureHeight / 3;
+                int positionPoint = (onethirdOfPic * 2) + (onethirdOfPic / 2);
+                return positionPoint;
+            }
+            default: {
+                int halfOfPic = pictureHeight / 2;
+                return halfOfPic;
+            }
+        }
+    }
+    /*private static int getPositionY(String id, Bitmap bitmap, String msg) {
+
+        int pictureHeight = bitmap.getHeight();
 
         switch(id) {
             case "LT":
@@ -193,7 +223,6 @@ public class Utility {
             case "MM":
             case "RM":    {
                 int halfOfPic = pictureHeight / 2;
-                //int finalX = halfOfPic - (msgWidthInt / 2);
                 return halfOfPic;
             }
             case "LB":
@@ -206,11 +235,10 @@ public class Utility {
 
             default: {
                 int halfOfPic = pictureHeight / 2;
-                //int finalX = halfOfPic - (msgWidthInt / 2);
                 return halfOfPic;
             }
         }
-    }
+    }*/
 
     private static float getMessageWidthPixel(String msg, float fontSize) {
         Paint mPaint = new Paint();

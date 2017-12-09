@@ -41,9 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 998;
     int TAKE_PHOTO_CODE = 0;
 
-    RadioGroup positionpicker1;
+    /*RadioGroup positionpicker1;
     RadioGroup positionpicker2;
-    RadioGroup positionpicker3;
+    RadioGroup positionpicker3;*/
+
+    RadioGroup positionpicker;
 
     RadioGroup colorGroup;
 
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
+    /*private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
 
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.fullScroll(View.FOCUS_DOWN);
             }
         }
-    };
+    };*/
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkRequiredPermissions();
 
-        intializePositionRadioGroups();
+        //intializePositionRadioGroups();
 
         colorGroup = (RadioGroup) findViewById(R.id.colorpicker);
         colorGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -166,15 +168,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*messageBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    messageBox.setBackgroundColor(Color.WHITE);
-                }
-            }
-        });*/
-
         ImageView capture = (ImageView) findViewById(R.id.btnCapture);
         capture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -190,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void intializePositionRadioGroups() {
+    /*private void intializePositionRadioGroups() {
         positionpicker1 = (RadioGroup) findViewById(R.id.positionpicker1);
         positionpicker2 = (RadioGroup) findViewById(R.id.positionpicker2);
         positionpicker3 = (RadioGroup) findViewById(R.id.positionpicker3);
@@ -202,61 +195,7 @@ public class MainActivity extends AppCompatActivity {
         positionpicker1.setOnCheckedChangeListener(listener1);
         positionpicker2.setOnCheckedChangeListener(listener2);
         positionpicker3.setOnCheckedChangeListener(listener3);
-
-        /*positionpicker1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d(this.getClass().getSimpleName(), "checkedId " + checkedId);
-                if (checkedId != -1) {
-                    //positionpicker2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
-                    positionpicker2.clearCheck(); // clear the second RadioGroup!
-                    //positionpicker2.setOnCheckedChangeListener(listener2); //reset the listener
-
-                    //positionpicker3.setOnCheckedChangeListener(null);
-                    positionpicker3.clearCheck();
-                    //positionpicker3.setOnCheckedChangeListener(listener3);
-
-                    scrollView.fullScroll(View.FOCUS_DOWN);
-                }
-            }
-        });
-
-        positionpicker2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d(this.getClass().getSimpleName(), "checkedId " + checkedId);
-                if (checkedId != -1) {
-                    //positionpicker1.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
-                    positionpicker1.clearCheck(); // clear the second RadioGroup!
-                    //positionpicker1.setOnCheckedChangeListener(listener1); //reset the listener
-
-                    //positionpicker3.setOnCheckedChangeListener(null);
-                    positionpicker3.clearCheck();
-                    //positionpicker3.setOnCheckedChangeListener(listener3);
-
-                    scrollView.fullScroll(View.FOCUS_DOWN);
-                }
-            }
-        });
-
-        positionpicker3.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d(this.getClass().getSimpleName(), "checkedId " + checkedId);
-                if (checkedId != -1) {
-                    //positionpicker1.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
-                    positionpicker1.clearCheck(); // clear the second RadioGroup!
-                    //positionpicker1.setOnCheckedChangeListener(listener1); //reset the listener
-
-                    //positionpicker2.setOnCheckedChangeListener(null);
-                    positionpicker2.clearCheck();
-                    //positionpicker2.setOnCheckedChangeListener(listener2);
-
-                    scrollView.fullScroll(View.FOCUS_DOWN);
-                }
-            }
-        });*/
-    }
+    }*/
 
     private void openScreenshot(File imageFile) {
         Intent intent = new Intent();
@@ -326,17 +265,19 @@ public class MainActivity extends AppCompatActivity {
 
         String color = getSelectedColor();
         String opacity = getSelectedOpacity();
+        String position = getSelectedPosition();
 
-        Log.d(this.getClass().getSimpleName(), "Message: " + message + " color: " + color);
+        Log.d(this.getClass().getSimpleName(), "Message: " + message + " color: " + color + "  position: " + position + "  opacity: " + opacity);
         Log.d(this.getClass().getSimpleName(), "Watermarking Image: " + imageFile.getAbsolutePath());
 
-        RadioButton positionRadioButton = getSelectedPositionRadioButton();
+        //RadioButton positionRadioButton = getSelectedPositionRadioButton();
 
         if (color != null && opacity != null){
 
             Bitmap bitmap1 = getWorkingBitmap();
             float resolutionDensity = getResources().getDisplayMetrics().density;
-            Bitmap bitmap = Utility.waterMark(bitmap1, message, getColorCode(color), getOPacity(opacity),getPostionRadioButtonId(positionRadioButton), resolutionDensity);
+            //Bitmap bitmap = Utility.waterMark(bitmap1, message, getColorCode(color), getOPacity(opacity),getPostionRadioButtonId(positionRadioButton), resolutionDensity);
+            Bitmap bitmap = Utility.waterMark(bitmap1, message, getColorCode(color), getOPacity(opacity),position, resolutionDensity);
 
             try {
                 Utility.saveBitmapAsImageFile(imageFile, bitmap);
@@ -350,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private RadioButton getSelectedPositionRadioButton() {
+    /*private RadioButton getSelectedPositionRadioButton() {
         RadioGroup positionpicker1 = (RadioGroup) findViewById(R.id.positionpicker1);
         RadioGroup positionpicker2 = (RadioGroup) findViewById(R.id.positionpicker2);
         RadioGroup positionpicker3 = (RadioGroup) findViewById(R.id.positionpicker3);
@@ -364,11 +305,11 @@ public class MainActivity extends AppCompatActivity {
             selectedRadioButton = getSelectedPositionRadioButton(positionpicker3);
         }
         return selectedRadioButton;
-    }
+    }*/
 
 
 
-    private String getPostionRadioButtonId(View view) {
+    /*private String getPostionRadioButtonId(View view) {
 
         if (view == null) {
             return "MM";
@@ -407,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
                 return "MM";
             }
         }
-    }
+    }*/
 
     private RadioButton getSelectedPositionRadioButton(RadioGroup radioGroup ) {
         int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
@@ -429,6 +370,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return opacityStr;
+    }
+
+    private String getSelectedPosition() {
+        positionpicker = (RadioGroup) findViewById(R.id.positionpicker);
+        int selectedPosition = positionpicker.getCheckedRadioButtonId();
+        RadioButton positionRadio = (RadioButton) findViewById(selectedPosition);
+        String positionStr = positionRadio.getText().toString();
+
+        if (positionStr == null) {
+            positionStr = "Middle";
+        } else {
+            positionStr = positionRadio.getText().toString();
+        }
+        return positionStr;
     }
 
     private String getSelectedColor() {

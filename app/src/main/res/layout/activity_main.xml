@@ -23,16 +23,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <!--<TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Your Watermark Message"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                android:textSize="20dp" />-->
-
             <EditText
                 android:id="@+id/watermarkmessage"
                 android:layout_width="fill_parent"
@@ -155,7 +145,41 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:textSize="20dp" />
+
             <RadioGroup
+                android:id="@+id/positionpicker"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="Top"
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/middle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="Middle"
+                    android:textSize="15dp"/>
+                <RadioButton
+                    android:id="@+id/bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorBlue"
+                    android:text="Bottom"
+                    android:textSize="15dp"/>
+            </RadioGroup>
+
+            <!--<RadioGroup
                 android:id="@+id/positionpicker1"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -186,12 +210,9 @@
                     android:textColor="@color/colorBlue"
 
                     android:textSize="15dp"/>
+            </RadioGroup>-->
 
-
-
-            </RadioGroup>
-
-            <RadioGroup
+            <!--<RadioGroup
                 android:id="@+id/positionpicker2"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -257,7 +278,7 @@
                     android:textColor="@color/colorBlue"
 
                     android:textSize="15dp"/>
-            </RadioGroup>
+            </RadioGroup>-->
 
             <!--<TextView
                 android:layout_width="wrap_content"

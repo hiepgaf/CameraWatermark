@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -45,9 +49,36 @@ public class MainActivity extends AppCompatActivity {
 
     ScrollView scrollView;
 
-    /*private RadioGroup.OnCheckedChangeListener listener1;
-    private RadioGroup.OnCheckedChangeListener listener2;
-    private RadioGroup.OnCheckedChangeListener listener3;*/
+    EditText messageBox;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.shareeasybmicalculator:
+                //shareMobileMapperWithOthers();
+                Utility.shareAppWithOthers(MainActivity.this);
+                return true;
+            case R.id.about:
+                openAbout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void openAbout() {
+        Log.d(this.getClass().getSimpleName(), "Opening About Activity");
+        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(intent);
+    }
 
     private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
 
@@ -116,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
         intializePositionRadioGroups();
 
-
         colorGroup = (RadioGroup) findViewById(R.id.colorpicker);
         colorGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
               @Override
@@ -127,11 +157,35 @@ public class MainActivity extends AppCompatActivity {
               }
           });
 
+        messageBox = (EditText) findViewById(R.id.watermarkmessage);
+
+        messageBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                messageBox.setBackgroundColor(Color.WHITE);
+            }
+        });
+
+        /*messageBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    messageBox.setBackgroundColor(Color.WHITE);
+                }
+            }
+        });*/
 
         ImageView capture = (ImageView) findViewById(R.id.btnCapture);
         capture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                triggerCamera();
+                final String msgstr = messageBox.getText().toString();
+                Log.d(this.getClass().getSimpleName(),"Message: " + msgstr);
+                if (msgstr == null || msgstr.length() == 0) {
+                    //messageBox.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                    messageBox.setBackgroundColor(Color.RED);
+                } else {
+                    triggerCamera();
+                }
             }
         });
     }
@@ -267,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void watermarkImage() {
 
-        EditText messageBox = (EditText) findViewById(R.id.watermarkmessage);
+        //EditText messageBox = (EditText) findViewById(R.id.watermarkmessage);
         String message = messageBox.getText().toString();
 
         String color = getSelectedColor();

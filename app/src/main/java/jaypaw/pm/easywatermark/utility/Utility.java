@@ -1,5 +1,7 @@
 package jaypaw.pm.easywatermark.utility;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import jaypaw.pm.easywatermark.BuildConfig;
 
 /**
  * Created by has7 on 12/6/2017.
@@ -216,4 +220,21 @@ public class Utility {
         return width;
     }
 
+    public static void shareAppWithOthers(Context con) {
+        Log.d(Utility.class.getSimpleName(), "Sharing Easy BMI Calculator");
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hi, I am using Camera Watermark App to watermark all my shots. I found this app very useful for intant image watermarking. Watermark your lovely shots and share with friends.").append("\n");
+        sb.append(BuildConfig.installableLink);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, sb.toString());
+        con.startActivity(Intent.createChooser(sharingIntent, "Share Easy BMI Calculator with Friends.."));
+    }
+
+    public static String prepareVersionString(String versinName, int versinCode) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(versinName).append("-").append(versinCode);
+        return sb.toString();
+    }
 }

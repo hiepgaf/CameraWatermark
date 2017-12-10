@@ -6,19 +6,14 @@
         android:orderInCategory="100"
         app:showAsAction="always"
         android:title=""/>-->
-    <item android:id="@+id/shareeasybmicalculator"
-        android:icon="@mipmap/share"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:title=""/>
-    <item android:id="@+id/gallery"
+    <item android:id="@+id/opennativegallery"
         android:icon="@mipmap/gallery"
         android:orderInCategory="100"
         app:showAsAction="always"
         android:title="" />
-    <item android:id="@+id/about"
-        android:icon="@mipmap/about"
+    <item android:id="@+id/shareimage"
+        android:icon="@mipmap/share"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="" />
+        android:title=""/>
 </menu>

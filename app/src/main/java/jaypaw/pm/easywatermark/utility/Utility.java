@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import jaypaw.pm.easywatermark.BuildConfig;
@@ -38,7 +39,8 @@ public class Utility {
 
     private static String getImageFileName() {
         StringBuilder sb = new StringBuilder();
-        sb.append("watermark-").append(getTimeStamp()).append(".jpg");
+        //sb.append("watermark-").append(getTimeStamp()).append(".jpg");
+        sb.append(BuildConfig.mediafileprefix).append(getTimeStamp()).append(BuildConfig.mediafilesuffix);
         Log.d(Utility.class.getSimpleName(), "fileName: " + sb.toString());
         return sb.toString();
     }
@@ -49,9 +51,10 @@ public class Utility {
         return timestamp;
     }
 
-    private static File getAppDirectory() {
+    public static File getAppDirectory() {
         String root = Environment.getExternalStorageDirectory().toString();
-        final File directory = new File(root + "/watermark/");
+        //final File directory = new File(root + "/watermark/");
+        final File directory = new File(root + BuildConfig.mediadirectory);
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -252,7 +255,7 @@ public class Utility {
         Log.d(Utility.class.getSimpleName(), "Sharing Easy BMI Calculator");
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         StringBuilder sb = new StringBuilder();
-        sb.append("Hi, I am using Camera Watermark App to watermark all my shots. I found this app very useful for intant image watermarking. Watermark your lovely shots and share with friends.").append("\n");
+        sb.append("Hi, I am using Camera Watermark App to watermark all my shots. I found this app very useful for instant image watermarking. Watermark your lovely shots and share with friends.").append("\n");
         sb.append(BuildConfig.installableLink);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
@@ -264,5 +267,21 @@ public class Utility {
         StringBuilder sb = new StringBuilder();
         sb.append(versinName).append("-").append(versinCode);
         return sb.toString();
+    }
+
+    public static void sortImageFile(String[] imageList) {
+        Arrays.sort(imageList);
+    }
+
+    public static String[] reverseArray(String[] imageList) {
+        int arraylength = imageList.length;
+        String[] newArray = new String[arraylength];
+        int counter = 0;
+        for(int i = arraylength-1; i>=0; i--) {
+            newArray[counter] = imageList[i];
+            counter += 1;
+        }
+
+        return newArray;
     }
 }

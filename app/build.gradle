@@ -16,9 +16,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'installableLink', '"https://play.google.com/store/apps/details?id=jaypaw.pm.easywatermark"'
+            buildConfigField 'String', 'mediadirectory', '"/watermark/"'
+            buildConfigField 'String', 'mediafileprefix', '"watermark-"'
+            buildConfigField 'String', 'mediafilesuffix', '".jpg"'
         }
         debug {
             buildConfigField 'String', 'installableLink', '"https://play.google.com/store/apps/details?id=jaypaw.pm.easywatermark"'
+            buildConfigField 'String', 'mediadirectory', '"/watermark/"'
+            buildConfigField 'String', 'mediafileprefix', '"watermark-"'
+            buildConfigField 'String', 'mediafilesuffix', '".jpg"'
         }
     }
 }

@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText messageBox;
 
+    TextView capturedphotoname;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -68,12 +71,22 @@ public class MainActivity extends AppCompatActivity {
                 //shareMobileMapperWithOthers();
                 Utility.shareAppWithOthers(MainActivity.this);
                 return true;
+            case R.id.gallery: {
+                openGallery();
+                return true;
+            }
             case R.id.about:
                 openAbout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openGallery() {
+        Log.d(this.getClass().getSimpleName(), "Opening Gallery Activity");
+        Intent intent = new Intent(MainActivity.this, GallaryActivity.class);
+        startActivity(intent);
     }
 
     private void openAbout() {
@@ -181,6 +194,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        capturedphotoname = (TextView) findViewById(R.id.capturedshot);
+        capturedphotoname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDetailActivity(imageFile);
+            }
+        });
     }
 
     /*private void intializePositionRadioGroups() {
@@ -196,6 +217,16 @@ public class MainActivity extends AppCompatActivity {
         positionpicker2.setOnCheckedChangeListener(listener2);
         positionpicker3.setOnCheckedChangeListener(listener3);
     }*/
+
+    private void openDetailActivity(File imageFile) {
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        intent.putExtra("title", imageFile.getName());
+        //intent.putExtra("image", item.getImage());
+        intent.putExtra("filename", imageFile.getAbsolutePath());
+
+        //Start details activity
+        startActivity(intent);
+    }
 
     private void openScreenshot(File imageFile) {
         Intent intent = new Intent();
@@ -282,7 +313,9 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Utility.saveBitmapAsImageFile(imageFile, bitmap);
                 scanFile(imageFile.getAbsolutePath());
-                openScreenshot(imageFile);
+                capturedphotoname.setText(imageFile.getName());
+
+                //openScreenshot(imageFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -498,7 +531,7 @@ public class MainActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(messageBox.getWindowToken(), 0);
     }
 
     private void scanFile(String path) {
